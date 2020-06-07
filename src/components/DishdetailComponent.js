@@ -1,6 +1,6 @@
 import React, { Component, Object } from 'react';
 import { Card, CardImg, CardBody, CardImgOverlay, CardText, CardTitle } from 'reactstrap'
-
+import '../App.css';
 
 
 
@@ -33,8 +33,8 @@ class DishDetail extends Component {
                                     <li>
                                         <br/>
                                     </li>
-                                   { "-- " + comment.author} 
-                                    {","+ comment.date }
+                                   { "-- " + comment.author+ ","} 
+                                     {new Intl.DateTimeFormat('en-US',{year: 'numeric',month:'short', day:'2-digit'}).format(new Date(Date.parse(comment.date)))} 
                                </li>
                         
                             </ul>
