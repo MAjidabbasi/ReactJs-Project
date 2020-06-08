@@ -33,7 +33,9 @@
   },
   "devDependencies": {
     "bootstrap": "^4.5.0",
+    "bootstrap-social": "^5.1.1",
     "date-fns": "^2.14.0",
+    "font-awesome": "^4.7.0",
     "react-popper": "^2.2.3",
     "reactstrap": "^8.4.1"
   }

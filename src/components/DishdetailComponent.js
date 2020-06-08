@@ -5,53 +5,37 @@ import '../App.css';
 
 
 
-class DishDetail extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
 
-        };
-
-
-    }
-    renderComments(c) {
+function RenderComments({c}) {
         // let size = c.keys(comments).length;
-        if (c != null) {
-
-            return (
-                <div>
-                    <h4>Comments</h4>
-                    <div>
-                    {c.comments.map((comment) => {
+    if (c != null) {
+        return (
+            <div>
+                <h4>Comments</h4>
+                {c.comments.map((comment) => {
                         return (
-                            <ul key={comment.id} className=' list-unstyled'>
-                               
-                               <li> {comment.comment}
-                                  
-                                </li>
-                               <li>
-                                    <li>
-                                        <br/>
-                                    </li>
-                                   { "-- " + comment.author+ ","} 
-                                     {new Intl.DateTimeFormat('en-US',{year: 'numeric',month:'short', day:'2-digit'}).format(new Date(Date.parse(comment.date)))} 
-                               </li>
-                        
-                            </ul>
+                        <ul key={comment.id} className=' list-unstyled'>
+       
+                        <li> {comment.comment} <br/></li>
+        <li> <br/>
+        { "-- " + comment.author+ ","} 
+        {new Intl.DateTimeFormat('en-US',{year: 'numeric',month:'short', day:'2-digit'}).format(new Date(Date.parse(comment.date)))} 
+       </li>
 
-                           
-                )
-                    })
-
-
-                    }
-    </div>
-                    {/* {c.comments[0].comment} */}
+    </ul>
+)
+})
+}
                 </div>
+
             )
         }
+        else {
+            return <div></div>
+        }
     }
-    renderDish(dish) {
+
+    function RenderDish({dish}) {
         if (dish != null) {
             return (
                 <Card>
@@ -74,24 +58,25 @@ class DishDetail extends Component {
         }
     }
 
-    render() {
+    const  DishDetail = (props) => {
 
         return (
             <div className='container'>
                 <div className='row'>
                     <div className='col-12 col-md-5 m-1'>
-                        {this.renderDish(this.props.dish)}
-
+                        {/* {this.renderDish(this.props.dish)} */}
+                        <RenderDish dish = {props.dish} />
                     </div>
                     <div className='col-12 col-md-5 m-1'>
-                        {this.renderComments(this.props.dish)}
+                        {/* {this.renderComments(this.props.dish)} */}
+                        <RenderComments c = {props.dish} />
                     </div>
                 </div>
             </div>
         )
 
     }
-}
+
 
 
 
