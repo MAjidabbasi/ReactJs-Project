@@ -2,10 +2,6 @@ import React, { Component, Object } from 'react';
 import { Card, CardImg, CardBody, CardImgOverlay, CardText, CardTitle } from 'reactstrap'
 import '../App.css';
 
-
-
-
-
 function RenderComments({c}) {
         // let size = c.keys(comments).length;
     if (c != null) {
