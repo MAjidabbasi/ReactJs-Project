@@ -1,54 +1,80 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav, Collapse, NavItem, NavbarToggler, Jumbotron } from 'reactstrap';
+import {
+    Navbar, NavbarBrand, Nav, Collapse, NavItem, NavbarToggler, Jumbotron,
+    Button, ModalHeader, Modal, ModalBody, Form, FormGroup, Input, Label
+} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isNavOpen : false
+            isNavOpen: false,
+            isModalOpen: false
         }
         this.toggleNav = this.toggleNav.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
-toggleNav() {
-    this.setState({
-        isNavOpen : !this.state.isNavOpen
-    });
-}
+    toggleNav() {
+        this.setState({
+            isNavOpen: !this.state.isNavOpen
+        });
+    }
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
+    }
+
+    handleLogin(event) {
+        this.toggleModal();
+        alert("Username: " + this.username.value + " Password: " + this.password.value + " Remember: " + this.remember.checked);
+        event.preventDefault();
+    }
 
     render() {
+
         return (
             <React.Fragment>
                 <Navbar dark expand='md'>
                     <div className="container">
-                        <NavbarToggler onClick = {this.toggleNav} />
+                        <NavbarToggler onClick={this.toggleNav} />
                         <NavbarBrand className='mr-auto' href="/"><img height='30' width='41' src='assets/images/logo.png' alt='Ristorante con Fusion' /></NavbarBrand>
-                        <Collapse isOpen = {this.state.isNavOpen} navbar>
-                        <Nav navbar>
-                            <NavItem >
-                                <NavLink className='nav-link' to='/home'>
-                                    <span className='fa fa-home fa-large'></span> Home
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav navbar>
+                                <NavItem >
+                                    <NavLink className='nav-link' to='/home'>
+                                        <span className='fa fa-home fa-large'></span> Home
             </NavLink>
-                            </NavItem>
-                            <NavItem >
-                                <NavLink className='nav-link' to='/aboutus'>
-                                    <span className='fa fa-info fa-large'></span> About us
+                                </NavItem>
+                                <NavItem >
+                                    <NavLink className='nav-link' to='/aboutus'>
+                                        <span className='fa fa-info fa-large'></span> About us
             </NavLink>
-                            </NavItem>
-                            <NavItem >
-                                <NavLink className='nav-link' to='/menu'>
-                                    <span className='fa fa-list fa-large'></span> Menu
+                                </NavItem>
+                                <NavItem >
+                                    <NavLink className='nav-link' to='/menu'>
+                                        <span className='fa fa-list fa-large'></span> Menu
             </NavLink>
-                            </NavItem>
-                            <NavItem >
-                                <NavLink className='nav-link' to='/contactus'>
-                                    <span className='fa fa-address-card fa-large'></span> Contact us
+                                </NavItem>
+                                <NavItem >
+                                    <NavLink className='nav-link' to='/contactus'>
+                                        <span className='fa fa-address-card fa-large'></span> Contact us
             </NavLink>
-                            </NavItem>
+                                </NavItem>
 
-                        </Nav>
+                            </Nav>
                         </Collapse>
+
+                        <Nav className='ml-auto' navbar>
+                            <NavItem>
+                                <Button outline onClick={this.toggleModal}>
+                                    <span className='fn fn-sign-in fn-large'></span> Login
+                                </Button>
+                            </NavItem>
+                        </Nav>
                     </div>
                 </Navbar>
                 <Jumbotron>
@@ -61,7 +87,45 @@ toggleNav() {
                         </div>
                     </div>
                 </Jumbotron>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>
+                        Login
+                        </ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={this.handleLogin} >
+
+                            <FormGroup>
+                                <Label htmlFor='username'>Username</Label>
+                                <Input type='text' id='username' name='username' placeholder="Username"
+                                    innerRef={(input) => this.username = input}
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label htmlFor='password'>Password</Label>
+                                <Input type='password' name='password' id='password' placeholder='Password'
+                                    innerRef={(input) => this.password = input}
+                                />
+                            </FormGroup>
+                            <FormGroup check>
+                                <Label check>
+                                    <Input type='checkbox' id='remember'
+                                        innerRef={(input) => this.remember = input}
+                                    />
+                                        Remember Me
+                                    </Label>
+                            </FormGroup>
+                            <Button type='submit' value='submi' color='primary'>
+                                Log In
+                                </Button>
+
+
+                        </Form>
+                    </ModalBody>
+
+                </Modal>
+
             </React.Fragment>
+
         );
 
     }
