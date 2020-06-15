@@ -21,21 +21,7 @@ function RenderLeader({leaders}) {
 
 
 
-    //    <div>
-    //        <div  className="col-12 mt-5">
-    //             <Media >
-    //               <Media left href="#">
-    //                   <Media object src={leaders.image} alt={leaders.name} />
-    //               </Media>
-    //               <Media body className="ml-5">
-    //                 <Media heading>{leaders.name}</Media>
-    //                 <p>{leaders.designation}</p>
-    //                 <p>{leaders.description}</p>
-    //               </Media>
-    //             </Media>
-    //           </div>
-    //    </div>
-
+  
 
     );
 }
@@ -110,7 +96,7 @@ function About(props) {
                    
                     <Media list>
                         {leaders}
-                        {/* <RenderLeader leaders = {props.leaders} /> */}
+                       
                     
                     </Media>
                 </div>
