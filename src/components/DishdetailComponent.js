@@ -1,7 +1,124 @@
-import React from 'react';
-import { Card, CardImg, CardBody, BreadcrumbItem, Breadcrumb, CardImgOverlay, CardText, CardTitle } from 'reactstrap'
-
+import React, { Component } from 'react';
+import { Card, CardImg, Col,
+    ModalHeader, Modal, ModalBody, Label,CardBody,Button, BreadcrumbItem, Breadcrumb, CardImgOverlay, CardText, CardTitle } from 'reactstrap'
 import { Link } from 'react-router-dom';
+
+
+
+import {Control, LocalForm, Errors} from 'react-redux-form'
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len); 
+
+class CommentForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false
+        }
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+
+    toggleModal() {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen
+        });
+    }
+    handleSubmit(values){
+            alert('States are : ' + JSON.stringify(values) );
+    }
+
+    render() {
+        return (
+            <div>
+                <Button outline submit onClick={this.toggleModal}>
+                    <span className='fn fn-submit fn-large' ></span> Submit Comment
+            </Button>
+
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalHeader toggle={this.toggleModal}>
+                        Submit Comment
+                    </ModalHeader>
+                    <ModalBody>
+                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                            <Col className='form-group'>
+                                <Label htmlFor='rating'>Rating</Label>
+
+                                <Control.select model='.rating' id='rating' name='rating'
+                                    className='form-control'   >
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Control.select>
+                            </Col>
+
+
+                            <Col className='form-group'>
+                                <Label htmlFor='author'>Author</Label>
+
+                                <Control.text model='.author' id='author' name='author'
+                                    placeholder='Author'
+                                    className='form-control'
+                                    validators = {{
+                                            required,minLength : minLength(3),maxLength: maxLength(15)
+                                        }}
+                                />
+                                <Errors
+                                    className='text-danger'
+                                    model='.author'
+                                    show='touched'
+                                    messages={{
+                                        required: 'Required & Text ',
+                                        minLength: 'Must be greater than 3 characters',
+                                        maxLength: 'Must be less than 15 characters'
+                                    }}
+
+                                />
+
+                            </Col>
+                            <Col className='form-group'>
+                                <Label htmlFor= 'comment'>Comment</Label>
+                                <Control.textarea model = '.comment' 
+                                rows = '6'
+                                className='form-control'
+                                placeholder='Type your comment here'
+                                id='comment'
+                                name='comment'
+                                ></Control.textarea>
+                            </Col>
+                            <Col>
+                                <Button type='submit' color='primary'>
+                                        Submit
+                                </Button>
+                            </Col>
+
+                        </LocalForm>
+                    </ModalBody>
+
+                </Modal>
+            </div>
+
+
+        )
+    }
+
+}
+
+
+
+
+
+
+
+
+
 
 function RenderComments({ comments }) {
     if (comments != null) {
@@ -24,8 +141,12 @@ function RenderComments({ comments }) {
                   
                 );
               })}
-           
+
+              
+
+              <CommentForm />
           </div>
+
         );
       } else return <div />;
 }
