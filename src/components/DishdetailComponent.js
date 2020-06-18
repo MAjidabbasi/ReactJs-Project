@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, Col,
     ModalHeader, Modal, ModalBody, Label,CardBody,Button, BreadcrumbItem, Breadcrumb, CardText, CardTitle } from 'reactstrap'
 import { Link } from 'react-router-dom';
-
-
-
+import {Loading} from './LoadingComponent';
 import {Control, LocalForm, Errors} from 'react-redux-form'
 
 const required = (val) => val && val.length;
@@ -115,14 +113,6 @@ class CommentForm extends Component {
 }
 
 
-
-
-
-
-
-
-
-
 function RenderComments({ comments, addComment, dishId }) {
     if (comments != null) {
         return (
@@ -154,8 +144,24 @@ function RenderComments({ comments, addComment, dishId }) {
       } else return <div />;
 }
 
-function RenderDish({ dish }) {
-    if (dish != null) {
+function RenderDish({ dish , isLoading, errMess }) {
+    if(isLoading){
+        return(
+            <div className='container'>
+                <div className='row'>
+                    <Loading />
+                </div>
+            </div>
+        )
+    } else if(errMess) {
+        return(
+            <div className='container'>
+                <div className='row'>
+                    <h4> {errMess} </h4>
+                </div>
+            </div>
+        )
+    }else if (dish != null) {
         return (
             <Card>
                 <CardImg top src={dish.image} alt={dish.name} />
@@ -194,7 +200,10 @@ const DishDetail = (props) => {
         </div>
         <div className="row">
             <div className="col-12 col-md-5 m-1">
-                <RenderDish dish = {props.dish} />
+                <RenderDish dish = {props.dish} 
+                 isLoading = {props.isLoading}
+                 errMess = {props.errMess}
+                />
             </div>
             <div className="col-12 col-md-5 m-1">
                 <RenderComments comments={props.comments} 
