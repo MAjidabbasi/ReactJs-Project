@@ -1,4 +1,4 @@
-# Project can be viewed at [con-fusion-restaurant.web.app]
+# Project can be viewed at https://con-fusion-restaurant.web.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
