@@ -8,7 +8,7 @@ function RenderLeader({leaders}) {
             <div key={leaders.id} className='col-12 mt-5'>
                 <Media tag='li'>
                     <Media left middle> 
-                        <Media object src={leaders.image} alt={leaders.name} />
+                        <Media object  width='150' height='150' src={leaders.image} alt={leaders.name} />
                     </Media>
                     <Media body className='ml-5'>
                         <Media heading>{leaders.name} </Media>
@@ -93,11 +93,8 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                   
                     <Media list>
                         {leaders}
-                       
-                    
                     </Media>
                 </div>
             </div>
